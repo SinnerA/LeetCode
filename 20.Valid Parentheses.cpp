@@ -7,14 +7,14 @@ Tags: Stack String
 */
 
 /*
-直接用栈
+鐩存帴鐢ㄦ爤
 */
 class Solution {
 public:
     bool isValid(string s) {
         if(s.empty()) return false;
 		stack<int> sta;
-		sta.push('#'); //防止pop时stack为空
+		sta.push('#'); //闃叉pop鏃秙tack涓虹┖
 		for(int i = 0; i < s.size(); ++i){
 			switch(s[i]){
 				case '(': sta.push(s[i]);break;
