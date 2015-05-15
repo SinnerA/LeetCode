@@ -7,22 +7,14 @@ Tags: Stack String
 */
 
 /*
-<<<<<<< HEAD
-Ö±½ÓÓÃÕ»
-=======
 ç›´æŽ¥ç”¨æ ˆ
->>>>>>> e5be46318e0111412a04ae1d0df1c120c2d93f11
 */
 class Solution {
 public:
     bool isValid(string s) {
         if(s.empty()) return false;
 		stack<int> sta;
-<<<<<<< HEAD
-		sta.push('#'); //·ÀÖ¹popÊ±stackÎª¿Õ
-=======
 		sta.push('#'); //é˜²æ­¢popæ—¶stackä¸ºç©º
->>>>>>> e5be46318e0111412a04ae1d0df1c120c2d93f11
 		for(int i = 0; i < s.size(); ++i){
 			switch(s[i]){
 				case '(': sta.push(s[i]);break;
@@ -60,8 +52,4 @@ public:
 		if(sta.size() == 1) return true;
 		else return false;
     }
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> e5be46318e0111412a04ae1d0df1c120c2d93f11
