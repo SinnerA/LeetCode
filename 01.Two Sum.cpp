@@ -93,8 +93,4 @@ public:
 		return res;
 	}
 };
-<<<<<<< HEAD
 vector<int> *Solution::numbersCopy = NULL;
-=======
-vector<int> *Solution::numbersCopy = NULL;
->>>>>>> eef8c5710730ccb6ec18008081cf48aa4dbe3396
