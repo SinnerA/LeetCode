@@ -33,8 +33,9 @@ public:
 			if(s != ""){
 				for(int i = 0; i < strLen; i++){
 					string savedStr = s; //保存，以便恢复
+					char temp = s[i];
 					for(char ch = 'a'; ch <= 'z'; ch++){
-						if(s[i] == ch) continue;
+						if(temp == ch) continue;
 						s[i] = ch;
 						if(s == endWord){
 							res++;
@@ -42,7 +43,7 @@ public:
 						}
 						if(wordDict.find(s) != wordDict.end()){
 							myQueue.push(s);
-							wordDict.erase(s);
+							wordDict.erase(s); //要从字典中删除，因为不删除的话会造成类似于hog->hot->hog的死循环
 						}
 					}
 					s = savedStr;
