@@ -1,4 +1,4 @@
-/*
+/*	
 Implement regular expression matching with support for '.' and '*'.
 
 '.' Matches any single character.
@@ -61,8 +61,8 @@ bool isMatch(char* s, char* p) {
 		else return false;
 	} else {
 		while(*s != 0 && (*s == *p || *p == '.')){
-			if(isMatch(s, p+2)) return true;
-			s++;
+			if(isMatch(s, p+2)) return true; //*的前一个字符重复了0次，直接跳过p的*，s与p的*之后的字符比较
+			s++;						     //*的前一个字符重复了1次（2次，3次...）
 		}
 		return isMatch(s, p+2);
 	}
