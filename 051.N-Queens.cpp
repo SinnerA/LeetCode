@@ -167,9 +167,10 @@ public:
 	void bfs(vector<string>& cur, int row, int ld, int rd, int index){
 		int pos;
 		if(row != upperlim){
-			int pos = upperlim & (~((row | ld | rd)));//可以放置皇后的位置
+			/*和upperlim与运算，主要是ld在上一层是通过左移位得到的，它的高位可能有无效的1存在，这样会清除ld高位无效的1*/
+			int pos = upperlim & (~((row | ld | rd)));//pos中二进制为1的位，表示可以在当前行的对应列放皇后
 			while(pos){
-				int p = pos & (~pos + 1);             //取最右边可以放置皇后的位置
+				int p = pos & (~pos + 1);             //获取pos最右边的1,例如pos = 010110，则p = 000010
 				pos = pos - p;                        //pos最右边1清零
 				setQueen(cur, index, p, 'Q');
 				bfs(cur, row | p, (ld | p) << 1, (rd | p) >> 1, index + 1);
@@ -184,6 +185,7 @@ public:
 			p >>= 1;
 			col++;
 		}
-		cur[row][col] = ch;
+		//cur[row][col] = ch;//相当于所有行都取相反的col
+		cur[row][cur.size() - col - 1] = ch;
 	}
 };
