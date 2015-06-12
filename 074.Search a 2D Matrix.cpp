@@ -31,7 +31,7 @@ public:
 		
 		int low = 0, high = row - 1;
 		while(low < high){
-			int middle = (low + high)/2;
+			int middle = low + (high - low)/2;//防止溢出
 			if(target < matrix[middle][0])
 				high = middle - 1;
 			else
@@ -46,7 +46,7 @@ public:
 		int targetRow = low;
 		int left = 0, right = col-1;
 		while(left <= right){
-			int mid = (left + right) / 2;
+			int mid = left + (right - left) / 2;
 			if(matrix[targetRow][mid] < target)
 				left = mid + 1;
 			else if(matrix[targetRow][mid] > target)
