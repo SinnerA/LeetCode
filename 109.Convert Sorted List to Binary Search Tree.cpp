@@ -21,6 +21,30 @@ Tags: Depth-first Search Linked List
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+/*方法1：利用快慢指针找到链表的中间节点*/
+class Solution {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+		if(head == NULL) return NULL;
+		ListNode *fast = head, *slow = head, *preSlow = NULL;
+		while(fast->next && fast->next->next){
+			fast = fast->next->next;//走两步
+			preSlow = slow;
+			slow = slow->next;      //走一步
+		}
+		TreeNode *root = new TreeNode(slow->val);
+		fast = slow->next;
+		//delete slow;   //错误操作，因为slow指向ListNode结构体，而ListNode有自己的析构函数，会自动调用delete，造成二次delete
+		if(preSlow != NULL){
+			preSlow->next = NULL;
+			root->left = sortedListToBST(head);
+		}
+		root->right = sortedListToBST(fast);
+		return root;
+    }
+};
+
+/*方法2：遍历找到链表的中间节点*/
 class Solution {
 public:
     TreeNode* sortedListToBST(ListNode* head) {
@@ -54,11 +78,3 @@ public:
 		return root;
 	}
 };
-
-
-
-
-
-
-
-

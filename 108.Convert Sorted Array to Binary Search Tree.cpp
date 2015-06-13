@@ -22,8 +22,7 @@ public:
 	TreeNode* build(Iter begin, Iter end){
 		if(begin == end) return NULL;
 		Iter rootIter = begin + (end - begin) / 2;
-		int rootVal = *rootIter;
-		TreeNode* root = new TreeNode(rootVal);
+		TreeNode* root = new TreeNode(*rootIter);
 		root->left = build(begin, rootIter);
 		root->right = build(rootIter + 1, end);
 		return root;
