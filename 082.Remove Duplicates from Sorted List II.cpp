@@ -17,7 +17,7 @@ Tags: Linked List
  * };
  */
 
-/*方法1*/
+/*??1*/
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
@@ -44,7 +44,7 @@ public:
     }
 };
 
-/*方法2*/
+/*??2*/
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
