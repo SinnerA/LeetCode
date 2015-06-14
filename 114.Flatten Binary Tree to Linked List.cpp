@@ -41,6 +41,22 @@ Tags: Tree Depth-first Search
 class Solution {
 public:
     void flatten(TreeNode* root) {
-        
+        if(root == NULL) return;
+		stack<TreeNode*> S;
+		S.push(root);
+		TreeNode* pre = NULL;
+		while(!S.empty()){
+			TreeNode *p = S.top();
+			S.pop();
+			if(p->right) S.push(p->right);
+			if(p->left) S.push(p->left);
+			if(pre){
+				pre->right = p;
+				pre->left = NULL;
+			}
+			pre = p;
+		}
+		pre->left = NULL;
+		pre->right = NULL;
     }
 };
