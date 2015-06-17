@@ -10,6 +10,15 @@ Could you optimize your algorithm to use only O(k) extra space?
 Tags: Array
 */
 
+/*
+指定层由上一层生成，而上一层由上上层生成...因此可在同一数组内，依次生成每层数据
+比如：rowIndex = 4
+1 0 0 0 0
+1 1 0 0 0
+1 2 1 0 0
+1 3 3 1 0
+1 4 6 4 1
+*/
 class Solution {
 public:
     vector<int> getRow(int rowIndex) {
