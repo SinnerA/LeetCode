@@ -15,8 +15,9 @@ Output: index1=1, index2=2
 /*
 方法一：
 将数组映射到hash表，key是元素值，value是该值在数组中的索引。由于元素可能有重复，使用unordered_multimap。
-映射以后，对于数组中的某个元素num1，只需要找到num2 = target-num1。但是找到num2，并不一定找到所需要的两个数，
-因为有可能num2 = num，此时需要保证哈希表中num2的个数>=2。
+映射以后，对于数组中的某个元素num，只需要找到num2 = target-num。但是找到num2，并不一定找到所需要的两个数，
+因为有可能num2 = num，比如对于数组2 7 11 15，target = 4，当num = 2时，num2 = target-num = 2，此时num2可以在哈希表中找到，但是num和num2指向的是同一个元素。
+此时需要保证哈希表中num2的个数>=2。
 */
 class Solution {
 public:
@@ -56,7 +57,7 @@ public:
 对数组进行从小到大排序，然后用指针head,tail分别指向首尾元素：
 1：如果head元素 + tail元素 = target，找到了！
 2：如果head元素 + tail元素 < target，head++
-3：如果head元素 + tail元素 < target，tail--
+3：如果head元素 + tail元素 > target，tail--
 4：如果head == tail，结束
 
 注意：由于要找索引，所以原数组的顺序不能改变，只是把元素的索引放在新的数组中，对这个新的索引数组排序
