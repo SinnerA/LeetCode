@@ -57,7 +57,13 @@ public:
 };
 
 /*
-算法2：运用hash_table
+算法2：运用hash_map，时间复杂度O（n^2）
+和前面一样，都是先对数组排序。
+我们先枚举出所有二个数的和存放在哈希map中，其中map的key对应的是二个数的和，因为多对元素求和可能是相同的值，
+故哈希map的value是一个链表（下面的代码中用数组代替），链表每个节点存的是这两个数在数组的下标；这个预处理的时间复杂度是O（n^2）。
+接着和算法1类似，枚举第一个和第二个元素，假设分别为v1,v2, 然后在哈希map中查找和为target-v1-v2的所有二元对（在对应的链表中），查找的时间为O（1），
+为了保证不重复计算，我们只保留两个数下标都大于V2的二元对（其实我们在前面3sum问题中所求得的三个数在排序后的数组中下标都是递增的），
+即时是这样也有可能重复，因此还要判断新加入的二元对和上一个加入的二元对是否重复即可（因为之前排序过，所以重复二元对必然相邻）
 */
 class Solution {
 public:
@@ -68,26 +74,26 @@ public:
 		sort(nums.begin(), nums.end());
 		
 		unordered_map<int, vector<pair<int, int> > > pairs;
-		pairs.reserve(n * n);
 		for(int i = 0; i < n; i++)
 			for(int j = i + 1; j < n; j++)
 				pairs[nums[i] + nums[j]].push_back(make_pair(i, j));
-		
+			
 		for(int i = 0; i < n - 3; i++){
-			if(i > 0 && nums[i] == nums[i-1]) continue;
+			if(i > 0 && nums[i] == nums[i-1]) continue;           //防止第一个元素重复
 			int num1 = nums[i];
 			for(int j = i + 1; j < n - 2; j++){
-				if(j > i + 1 && nums[j] == nums[j-1]) continue;
+				if(j > i + 1 && nums[j] == nums[j-1]) continue;   //防止第二个元素重复 
 				int num2 = nums[j];
 				int newTarget = target - num1 - num2;
 				if(pairs.find(newTarget) != pairs.end()){
-				    vector<pair<int, int> > vec = pairs[newTarget];
+					vector<pair<int, int> > vec = pairs[newTarget];
+					bool isFirstPush = true;
 					for(int k = 0; k < vec.size(); k++){
-						if(vec[k].first <= j) continue;
-						res.push_back(vector<int>{num1, num2, nums[vec[k].first], nums[vec[k].second]});
-						int m = k + 1;
-						while(m < vec.size() && nums[vec[m].first] == nums[vec[k].first]) m++;
-						k = m;
+						if(vec[k].first <= j) continue;           //保证所求的四元组的数组下标是递增的
+						if(isFirstPush || (res.back())[2] != nums[vec[k].first]){
+							res.push_back(vector<int>{num1, num2, nums[vec[k].first], nums[vec[k].second]});
+							isFirstPush = false;
+						}
 					}
 				}
 			}
