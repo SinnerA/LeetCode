@@ -10,8 +10,30 @@ Your function should return length = 5, with the first five elements of nums bei
 Tags: Array Two Pointers
 */
 
+/*设置cnt用于计数。当counter是2时，就直接跳过即可，否则说明元素出现次数没有超，继续放入结果数组，若遇到新元素则重置counter。*/
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+		int n = nums.size();
+		if(n == 0) return 0;
+		int idx = 0, cnt = 0;
+		for(int i = 0; i < n; i++){
+			if(i > 0 && nums[i] == nums[i-1]){
+				cnt++;
+				if(cnt > 2)
+					continue;
+			} else {
+				cnt = 1;
+			}
+			nums[idx++] = nums[i];
+		}
+		return idx;
+    }
+};
+
+
 /*
-当我们需要留下某个元素时，先暂时保存好，等到下一轮再覆盖，这样我们找前一个的前一个元素A[i-2]时，就不会出现A[i-2]原来的值被覆盖的情况。
+当我们需要留下某个元素时，先暂时保存好，等到下一轮再覆盖，这样我们找前一个的前一个元素A[i-2]时，就不会出现A[i-2]原来的值被覆盖的情况。（没有搞懂囧）
 */
 class Solution {
 public:
