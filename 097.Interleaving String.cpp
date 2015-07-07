@@ -33,7 +33,7 @@ public:
 		if(end1 >= 0 && s1[end1] == s3[end3] && isInterleaveRecur(s1, end1 - 1, s2, end2, s3, end3 - 1))
 			return true;
 		if(end2 >= 0 && s2[end2] == s3[end3] && isInterleaveRecur(s1, end1, s2, end2 - 1, s3, end3 - 1))
-		   return true;
+			return true;
 		return false;
 	}
 };
@@ -42,5 +42,27 @@ public:
 动态规划解法：根据递归的思想，我们一刻如下使用动态规划解此题。设dp[i][j]表示s1[0...i-1]和s2[0...j-1]能否组合成s3[0....i+j-1]，动态规划方程如下                                                                               本文地址
 
 dp[i][j] = (dp[i][j-1] ==true && s3[i+j-1] == s2[j-1]) || (dp[i-1][j] == true && s3[i-1+j] == s1[i-1])
-初始条件：if(s1[0] == s3[0])dp[1][0] = true  ，  if(s2[0] == s3[0])dp[0][1] = true; 其他值均为false
+初始条件：if(s1[0] == s3[0])dp[1][0] = true，if(s2[0] == s3[0])dp[0][1] = true; 其他值均为false
 */
+class Solution {
+public:
+    bool isInterleave(string s1, string s2, string s3) {
+		int n1 = s1.size(), n2 = s2.size(), n3 = s3.size();
+		if(n1 == 0 && n2 == 0 && n3 == 0) return true;
+		if(n1 + n2 != n3) return false;
+		
+		int dp[n1+1][n2+1]; //dp[i][j]表示s1[0...i-1]和s2[0...j-1]能否组合成s3[0....i+j-1]
+		memset(dp, 0, sizeof(dp));
+		if(s1[0] == s3[0]) dp[1][0] = 1;
+		if(s2[0] == s3[0]) dp[0][1] = 1;
+		
+		for(int i = 0; i <= n1; i++){
+			for(int j = 0; j <= n2; j++){
+				int k = i + j;
+				if((j > 0 && dp[i][j-1] && s2[j-1] == s3[k-1]) || (i > 0 && dp[i-1][j] && s1[i-1] == s3[k-1]))
+					dp[i][j] = 1;
+			}
+		}
+		return dp[n1][n2];
+    }
+};
