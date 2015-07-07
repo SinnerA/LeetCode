@@ -94,15 +94,17 @@ public:
 		int dp[n+1][n][n];//dp[k][i][j]表示s2从j开始长度为k的子串是否可以由s1从i开始长度为k的子串转换而成
 		memset(dp, 0, sizeof(dp));
 		
+		//初始化长度为1的子串的dp值
 		for(int i = 0; i < n; i++){
 			for(int j = 0; j < n; j++){
 				if(s1[i] == s2[j]) dp[1][i][j] = 1;
 			}
 		}
 		
-		for(int len = 2; len <= n; len++){
-			for(int i = 0; i <= n - len; i++){
-				for(int j = 0; j <= n - len; j++){
+		for(int len = 2; len <= n; len++){         //子串的长度
+			for(int i = 0; i <= n - len; i++){     //s1的起始位置
+				for(int j = 0; j <= n - len; j++){ //s2的起始位置
+				    //divlen表示两个子串分割点到子串起始端的距离
 					for(int divLen = 1; divLen < len && !dp[len][i][j]; divLen++){
 						if((dp[divLen][i][j] && dp[len - divLen][i + divLen][j + divLen]) || (dp[divLen][i][j + len - divLen] && dp[len - divLen][i + divLen][j]))
 							dp[len][i][j] = 1;
