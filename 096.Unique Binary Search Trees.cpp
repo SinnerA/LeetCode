@@ -14,9 +14,9 @@ Tags: Tree Dynamic Programming
 */
 
 /*
-动态规划：dp[i]表示以长度为i的数1...i，能构成BST的个数
+动态规划：dp[i]表示以长度为i的序列1...i，能构成BST的个数
 初始化：dp[0] = 1, dp[1] = 1, dp[2] = 2;
-递推式：dp[i] = sum(dp[k] * dp[i-k-1]) (k为选取的根节点，k = 0...i-1)
+递推式：dp[i] = sum(dp[k] * dp[i-k-1]) (k为选取的根节点，k = 0...i-1，左子树个数 * 右子树个数)
 */
 class Solution {
 public:
