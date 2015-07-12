@@ -27,7 +27,6 @@ Tags: Array Backtracking Bit Manipulation
 这样构造子集的过程中每个元素就有两种选择方法：选择、不选择，因此可以构造一颗二叉树，例如对于例子中给的集合[1,2,3]，
 构造的二叉树中最后得到的叶子节点就是子集。我们可以用dfs来得到树的所有叶子节点
 */
-
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
@@ -52,4 +51,3 @@ public:
 		dfs(left+1, right, nums, tempRes, res);
 	}
 };
-
