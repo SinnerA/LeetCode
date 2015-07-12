@@ -37,7 +37,7 @@ public:
 		int maxProfitTail = 0;
 		int maxPrice = prices[n-1];
 		res = maxProfitHead[n-1];
-		for(int i = n-2; i >= 1; i--){
+		for(int i = n-2; i >= 0; i--){
 			maxPrice = max(maxPrice, prices[i+1]);
 			if(maxProfitTail < maxPrice - prices[i+1])
 				maxProfitTail = maxPrice - prices[i+1];
